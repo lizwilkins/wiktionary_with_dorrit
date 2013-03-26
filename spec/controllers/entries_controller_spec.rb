@@ -53,60 +53,60 @@ describe EntriesController do
     end
   end
 
-  # context 'PUT update' do
-  #   let(:entry) {FactoryGirl.create :entry}
+  context 'PUT update' do
+    let(:entry) {FactoryGirl.create :entry}
 
-  #   context 'with valid parameters' do
-  #     let(:valid_attributes) {{:email => 'michael@epicodus.com'}}
-  #     let(:valid_parameters) {{:id => entry.id, :entry => valid_attributes}}
-  #     before {put :update, valid_parameters}
+    context 'with valid parameters' do
+      let(:valid_attributes) {{:definition => 'dogs best friend'}}
+      let(:valid_parameters) {{:id => entry.id, :entry => valid_attributes}}
+      before {put :update, valid_parameters}
 
-  #     it 'updates the entry' do
-  #       Entry.find(entry.id).email.should eq valid_attributes[:email]
-  #     end
+      it 'updates the entry' do
+        Entry.find(entry.id).definition.should eq valid_attributes[:definition]
+      end
 
-  #     it {should respond_with 200}
-  #     it {should respond_with_content_type :json}
-  #     it 'responds with a json representation of the updated entry' do
-  #       response.body.should eq entry.reload.to_json
-  #     end
-  #   end
+      it {should respond_with 200}
+      it {should respond_with_content_type :json}
+      it 'responds with a json representation of the updated entry' do
+        response.body.should eq entry.reload.to_json
+      end
+    end
 
-  #   context 'with invalid parameters' do
-  #     let(:invalid_attributes) {{:name => ''}}
-  #     let(:invalid_parameters) {{:id => entry.id, :entry => invalid_attributes}}
-  #     before {put :update, invalid_parameters}
+    context 'with invalid parameters' do
+      let(:invalid_attributes) {{:definition => ''}}
+      let(:invalid_parameters) {{:id => entry.id, :entry => invalid_attributes}}
+      before {put :update, invalid_parameters}
 
-  #     it {should respond_with 422}
-  #     it {should respond_with_content_type :json}
+      it {should respond_with 422}
+      it {should respond_with_content_type :json}
 
-  #     it 'responds with a json representation of the errors' do
-  #       entry.update_attributes(invalid_attributes)
-  #       response.body.should eq entry.errors.to_json
-  #     end
-  #   end
-  # end
+      it 'responds with a json representation of the errors' do
+        entry.update_attributes(invalid_attributes)
+        response.body.should eq entry.errors.to_json
+      end
+    end
+  end
 
-  # context 'DELETE destroy' do
-  #   it 'destroys a entry' do
-  #     entry = FactoryGirl.create :entry
-  #     expect {delete :destroy, {:id => entry.id}}.to change(Entry, :count).by(-1)
-  #   end
+  context 'DELETE destroy' do
+    it 'destroys a entry' do
+      entry = FactoryGirl.create :entry
+      expect {delete :destroy, {:id => entry.id}}.to change(Entry, :count).by(-1)
+    end
 
-  #   let(:entry) {FactoryGirl.create :entry}
-  #   before {delete :destroy, {:id => entry.id}}
+    let(:entry) {FactoryGirl.create :entry}
+    before {delete :destroy, {:id => entry.id}}
 
-  #   it {should respond_with 204}
-  # end
+    it {should respond_with 204}
+  end
 
-  # context 'GET index' do
-  #   before {Entry.create({:name => 'michael'})}
-  #   before {get :index}
+  context 'GET index' do
+    before {Entry.create({:word => 'cat', :definition => 'dogs best friend'})}
+    before {get :index}
 
-  #   it {should respond_with 200}
-  #   it {should respond_with_content_type :json}
-  #   it 'responds with a json representation of all the entrys' do
-  #     response.body.should eq Entry.all.to_json
-  #   end
-  # end
+    it {should respond_with 200}
+    it {should respond_with_content_type :json}
+    it 'responds with a json representation of all the entrys' do
+      response.body.should eq Entry.all.to_json
+    end
+  end
 end
